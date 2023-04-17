@@ -8,13 +8,25 @@ const { fifaData } = require('./fifa.js')
 
 //(a) 2014 Dünya kupası Finali Evsahibi takım ismi (dizide "Home Team Name" anahtarı)
 
+const dunyakupasi2014Final = fifaData.filter(val => val.Year == 2014 && val.Stage == "Final");
+
+console.log(dunyakupasi2014Final.map(val => val["Home Team Name"]));
+
 //(b) 2014 Dünya kupası Finali Deplasman takım ismi  (dizide "Away Team Name" anahtarı)
+
+console.log(dunyakupasi2014Final.map(val => val["Away Team Name"]));
 
 //(c) 2014 Dünya kupası finali Ev sahibi takım golleri (dizide "Home Team Goals" anahtarı)
 
+console.log(dunyakupasi2014Final.map(val => val["Home Team Goals"]));
+
 //(d)2014 Dünya kupası finali Deplasman takım golleri  (dizide "Away Team Goals" anahtarı)
 
+console.log(dunyakupasi2014Final.map(val => val["Away Team Goals"]));
+
 //(e) 2014 Dünya kupası finali kazananı*/
+
+console.log(dunyakupasi2014Final.map(val => val[`Win conditions`]));
 
 
 /*  Görev 2: 
@@ -25,10 +37,14 @@ const { fifaData } = require('./fifa.js')
 	💡 İPUCU - verilen data içindeki nesnelerin(objects) "Stage" anahtarına bakmalısınız
 */
 
-function Finaller(/* kodlar buraya */) {
+function Finaller(dizi) {
 	
-    /* kodlar buraya */
+    const dünyaKupası = dizi.filter(val => val.Stage == "Final");
+
+	return dünyaKupası
 }
+
+console.log(Finaller(fifaData))
 
 
 
@@ -39,10 +55,14 @@ function Finaller(/* kodlar buraya */) {
 	3. Finaller data setindeki tüm yılları içeren "years" adındaki diziyi(array) döndürecek
 	*/
 
-function Yillar(/* kodlar buraya */) {
-	
-    /* kodlar buraya */
+function Yillar(dizi, callback) {
+	const cagır = callback(dizi)
+	const ayıllar = cagır.map(val => val.Year)
+		
+	return ayıllar
 }
+	
+console.log(Yillar(fifaData, Finaller));
 
 
 /*  Görev 4: 

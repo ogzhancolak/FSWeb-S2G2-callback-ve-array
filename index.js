@@ -73,10 +73,23 @@ console.log(Yillar(fifaData, Finaller));
 	💡 İPUCU: Beraberlikler(ties) için şimdilik endişelenmeyin (Detaylı bilgi için README dosyasına bakabilirsiniz.)
 	4. Tüm kazanan ülkelerin isimlerini içeren `kazananlar` adında bir dizi(array) döndürecek(return)  */ 
 
-function Kazananlar(/* kodlar buraya */) {
+function Kazananlar(dizi, callback) {
 	
-    /* kodlar buraya */
-	
+	const func = callback(dizi);
+    const win = func.map(val => {
+		if (val["Home Team Goals"] > val["Away Team Goals"]) {
+
+			return val["Home Team Name"];
+
+		  } else if (val["Home Team Goals"] < val["Away Team Goals"]) {
+
+			return val["Away Team Name"];
+
+		  } else {
+			return "Beraberlik";
+		  }
+	})
+	return win;
 }
 
 
@@ -92,12 +105,23 @@ function Kazananlar(/* kodlar buraya */) {
 	💡 İPUCU: her cümlenin adım 4'te belirtilen cümleyle birebir aynı olması gerekmektedir.
 */
 
-function YillaraGoreKazananlar(/* kodlar buraya */) {
+function YillaraGoreKazananlar(fifadata, FinallerCallback, YillarCallback, KazananlarCallback) {
 	
-/* kodlar buraya */
+	const finalsList = FinallerCallback(fifadata); // Finaller(prop)
+	console.log(finalsList.length);
+	const yearsList = YillarCallback(finalsList, FinallerCallback); // function Yillar(allData, getFinalStages) {
+	console.log(yearsList.length);
+	const winnersList = KazananlarCallback(finalsList, FinallerCallback); // Kazananlar
+	console.log(winnersList.length);
+
+	const result = yearsList.map((year, index) => {
+	  return `${year} yılında, ${winnersList[index]} dünya kupasını kazandı!`;
+	});
+	return result;
 
 }
 
+console.log(YillaraGoreKazananlar(fifaData, Finaller, Yillar, Kazananlar))
 
 /*  Görev 6: 
 	Bir higher order fonksiyonu olan `OrtalamaGolSayisi` isimli fonksiyona aşağıdakileri uygulayın: 
@@ -113,13 +137,19 @@ function YillaraGoreKazananlar(/* kodlar buraya */) {
 	
 */
 
-function OrtalamaGolSayisi(/* kodlar buraya */) {
+function OrtalamaGolSayisi(funcB) {
 	
-    /* kodlar buraya */
+    const goal = funcB;
+	const goalSum = goal.reduce((total,teams) => {return total + teams["Away Team Goals"] + teams["Home Team Goals"]},0);
+	const match = funcB.length;
+	const goalAverage = goalSum/match;
+ 	let ave = goalAverage.toFixed(2);
+ 	return ave;
 	
 }
 
-
+OrtalamaGolSayisi(Finaller(fifaData));
+console.log("Görev-6: ", OrtalamaGolSayisi(Finaller(fifaData)));
 
 /// EKSTRA ÇALIŞMALAR ///
 
